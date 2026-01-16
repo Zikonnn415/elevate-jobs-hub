@@ -80,6 +80,8 @@ export default function JobsPage() {
                 <PaginationControls
                   currentPage={pagination.currentPage}
                   totalPages={pagination.totalPages}
+                  totalItems={pagination.totalItems}
+                  itemsPerPage={pagination.itemsPerPage}
                   onPageChange={handlePageChange}
                 />
               </div>

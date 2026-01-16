@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/hooks/useAppDispatch';
 import { JobCard } from './JobCard';
-import { LoadingPage } from '@/components/ui/loading-spinner';
+import { JobListSkeleton } from '@/components/ui/skeleton-loaders';
 import { Briefcase } from 'lucide-react';
 
 interface JobListProps {
@@ -13,7 +13,7 @@ export function JobList({ compact = false }: JobListProps) {
   );
 
   if (isLoading) {
-    return <LoadingPage message="Loading jobs..." />;
+    return <JobListSkeleton />;
   }
 
   if (error) {

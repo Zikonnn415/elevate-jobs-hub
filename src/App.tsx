@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "@/store";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 
 import { MainLayout } from "@/components/layout/MainLayout";
 import { ProtectedRoute } from "@/components/auth/ProtectedRoute";
@@ -24,10 +25,11 @@ const App = () => (
   <Provider store={store}>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
+        <ThemeProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
             {/* Auth routes without layout */}
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
@@ -63,6 +65,7 @@ const App = () => (
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
+        </ThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </Provider>

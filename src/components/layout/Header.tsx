@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { useAppDispatch, useAppSelector } from '@/hooks/useAppDispatch';
 import { logout } from '@/store/slices/authSlice';
+import { useTheme } from '@/contexts/ThemeContext';
 import {
   Briefcase,
   Menu,
@@ -10,6 +11,9 @@ import {
   LogOut,
   Building2,
   LayoutDashboard,
+  Moon,
+  Sun,
+  Monitor,
 } from 'lucide-react';
 import { useState } from 'react';
 import {
@@ -24,6 +28,7 @@ import { cn } from '@/lib/utils';
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+  const { theme, setTheme } = useTheme();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -83,11 +88,39 @@ export function Header() {
 
         {/* Desktop Auth Buttons */}
         <div className="hidden lg:flex items-center gap-3">
+          {/* Theme Toggle */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="hover-lift">
+                {theme === 'light' && <Sun className="h-4 w-4" />}
+                {theme === 'dark' && <Moon className="h-4 w-4" />}
+                {theme === 'system' && <Monitor className="h-4 w-4" />}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setTheme('light')} className="cursor-pointer">
+                <Sun className="h-4 w-4 mr-2" />
+                <span>Light</span>
+                {theme === 'light' && <span className="ml-auto text-primary">✓</span>}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme('dark')} className="cursor-pointer">
+                <Moon className="h-4 w-4 mr-2" />
+                <span>Dark</span>
+                {theme === 'dark' && <span className="ml-auto text-primary">✓</span>}
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme('system')} className="cursor-pointer">
+                <Monitor className="h-4 w-4 mr-2" />
+                <span>System</span>
+                {theme === 'system' && <span className="ml-auto text-primary">✓</span>}
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="gap-2 hover-lift">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors dark:bg-primary/20">
                     <User className="h-4 w-4 text-primary" />
                   </div>
                   <span className="font-medium">{user?.fullName}</span>
