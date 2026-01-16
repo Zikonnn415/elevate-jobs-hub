@@ -57,20 +57,20 @@ export function JobFilters({ variant = 'sidebar' }: JobFiltersProps) {
   if (variant === 'hero') {
     return (
       <div className="w-full max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row gap-3 p-2 bg-card rounded-2xl shadow-xl">
+        <div className="flex flex-col sm:flex-row gap-3 p-2 bg-card rounded-2xl shadow-xl border border-border/50 hover:shadow-2xl transition-all duration-300 hover-lift">
           <div className="flex-1 relative">
             <Input
               placeholder="Job title, keywords, or company"
               value={filters.search}
               onChange={(e) => handleSearchChange(e.target.value)}
               icon={<Search className="h-5 w-5" />}
-              className="border-0 bg-transparent h-12 text-base"
+              className="border-0 bg-transparent h-12 text-base focus:ring-2 focus:ring-primary/20"
             />
           </div>
           <div className="h-12 w-px bg-border hidden sm:block" />
           <div className="flex-1">
             <Select value={filters.location || 'all'} onValueChange={handleLocationChange}>
-              <SelectTrigger className="border-0 bg-transparent h-12">
+              <SelectTrigger className="border-0 bg-transparent h-12 hover:bg-muted/50 transition-colors">
                 <div className="flex items-center gap-2">
                   <MapPin className="h-5 w-5 text-muted-foreground" />
                   <SelectValue placeholder="Location" />
@@ -86,7 +86,7 @@ export function JobFilters({ variant = 'sidebar' }: JobFiltersProps) {
               </SelectContent>
             </Select>
           </div>
-          <Button size="lg" className="h-12 px-8">
+          <Button size="lg" className="h-12 px-8 hover-lift shadow-md">
             <Search className="h-5 w-5 mr-2" />
             Search Jobs
           </Button>
@@ -120,9 +120,9 @@ export function JobFilters({ variant = 'sidebar' }: JobFiltersProps) {
       {/* Filter Panel */}
       <div
         className={cn(
-          "bg-card rounded-xl border p-6 space-y-6",
+          "bg-card rounded-xl border border-border/50 p-6 space-y-6 shadow-sm hover:shadow-md transition-shadow",
           "lg:block",
-          showMobileFilters ? "block" : "hidden"
+          showMobileFilters ? "block animate-slide-up" : "hidden"
         )}
       >
         <div className="flex items-center justify-between">

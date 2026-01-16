@@ -43,15 +43,15 @@ export function Header() {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+    <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur-md supports-[backdrop-filter]:bg-card/80 shadow-sm">
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl gradient-primary shadow-md group-hover:shadow-lg transition-shadow">
-            <Briefcase className="h-5 w-5 text-primary-foreground" />
+        <Link to="/" className="flex items-center gap-2.5 group hover-lift">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl gradient-primary shadow-md group-hover:shadow-lg group-hover:scale-105 transition-all duration-300">
+            <Briefcase className="h-5 w-5 text-primary-foreground group-hover:rotate-12 transition-transform" />
           </div>
           <div className="hidden sm:block">
-            <span className="font-display text-lg font-bold text-foreground">
+            <span className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
               Elevate
             </span>
             <span className="font-display text-lg font-bold text-primary">
@@ -67,13 +67,16 @@ export function Header() {
               key={link.href}
               to={link.href}
               className={cn(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-colors",
+                "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 relative group",
                 isActive(link.href)
                   ? "bg-primary/10 text-primary"
                   : "text-muted-foreground hover:text-foreground hover:bg-muted"
               )}
             >
               {link.label}
+              {isActive(link.href) && (
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-primary animate-bounce-in" />
+              )}
             </Link>
           ))}
         </nav>
@@ -83,8 +86,8 @@ export function Header() {
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
+                <Button variant="ghost" className="gap-2 hover-lift">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
                     <User className="h-4 w-4 text-primary" />
                   </div>
                   <span className="font-medium">{user?.fullName}</span>
@@ -123,10 +126,10 @@ export function Header() {
             </DropdownMenu>
           ) : (
             <>
-              <Button variant="ghost" asChild>
+              <Button variant="ghost" className="hover-lift" asChild>
                 <Link to="/login">Sign In</Link>
               </Button>
-              <Button asChild>
+              <Button className="hover-lift shadow-md" asChild>
                 <Link to="/register">Get Started</Link>
               </Button>
             </>
@@ -146,7 +149,7 @@ export function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t bg-card animate-slide-up">
+        <div className="lg:hidden border-t bg-card/95 backdrop-blur-md animate-slide-up shadow-lg">
           <nav className="container py-4 space-y-1">
             {navLinks.map((link) => (
               <Link

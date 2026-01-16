@@ -142,13 +142,17 @@ export default function JobDetailPage() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="gradient-hero text-primary-foreground py-8">
-        <div className="container">
+      <div className="gradient-hero text-primary-foreground py-8 relative overflow-hidden">
+        {/* Animated gradient orbs */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse-soft" />
+        <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-pulse-soft" style={{ animationDelay: '1s' }} />
+        
+        <div className="container relative">
           <Link
             to="/jobs"
-            className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground mb-6 transition-colors"
+            className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground mb-6 transition-all duration-200 hover-lift group"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
             Back to Jobs
           </Link>
 
@@ -189,14 +193,15 @@ export default function JobDetailPage() {
                 size="lg"
                 variant="hero"
                 onClick={() => setApplyDialogOpen(true)}
+                className="hover-lift shadow-xl"
               >
                 Apply Now
               </Button>
               <div className="flex gap-2">
-                <Button variant="heroOutline" size="icon">
+                <Button variant="heroOutline" size="icon" className="hover-lift">
                   <Bookmark className="h-5 w-5" />
                 </Button>
-                <Button variant="heroOutline" size="icon">
+                <Button variant="heroOutline" size="icon" className="hover-lift">
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>
@@ -210,7 +215,7 @@ export default function JobDetailPage() {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
             {/* Description */}
-            <Card>
+            <Card className="hover-lift border border-border/50">
               <CardContent className="p-6">
                 <h2 className="font-display text-xl font-semibold mb-4">Job Description</h2>
                 <p className="text-muted-foreground leading-relaxed">
@@ -220,14 +225,14 @@ export default function JobDetailPage() {
             </Card>
 
             {/* Requirements */}
-            <Card>
+            <Card className="hover-lift border border-border/50">
               <CardContent className="p-6">
                 <h2 className="font-display text-xl font-semibold mb-4">Requirements</h2>
                 <ul className="space-y-3">
                   {selectedJob.requirements.map((req, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-success shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{req}</span>
+                    <li key={index} className="flex items-start gap-3 group">
+                      <CheckCircle2 className="h-5 w-5 text-success shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                      <span className="text-muted-foreground group-hover:text-foreground transition-colors">{req}</span>
                     </li>
                   ))}
                 </ul>
@@ -235,14 +240,14 @@ export default function JobDetailPage() {
             </Card>
 
             {/* Benefits */}
-            <Card>
+            <Card className="hover-lift border border-border/50">
               <CardContent className="p-6">
                 <h2 className="font-display text-xl font-semibold mb-4">Benefits</h2>
                 <ul className="space-y-3">
                   {selectedJob.benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <span className="text-muted-foreground">{benefit}</span>
+                    <li key={index} className="flex items-start gap-3 group">
+                      <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
+                      <span className="text-muted-foreground group-hover:text-foreground transition-colors">{benefit}</span>
                     </li>
                   ))}
                 </ul>
@@ -250,12 +255,12 @@ export default function JobDetailPage() {
             </Card>
 
             {/* Skills */}
-            <Card>
+            <Card className="hover-lift border border-border/50">
               <CardContent className="p-6">
                 <h2 className="font-display text-xl font-semibold mb-4">Required Skills</h2>
                 <div className="flex flex-wrap gap-2">
                   {selectedJob.skills.map((skill) => (
-                    <Badge key={skill} variant="primary" className="px-3 py-1">
+                    <Badge key={skill} variant="primary" className="px-3 py-1 hover:scale-105 transition-transform cursor-default">
                       {skill}
                     </Badge>
                   ))}
@@ -267,7 +272,7 @@ export default function JobDetailPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Job Overview */}
-            <Card>
+            <Card className="hover-lift border border-border/50 sticky top-24">
               <CardContent className="p-6">
                 <h3 className="font-display font-semibold mb-4">Job Overview</h3>
                 <div className="space-y-4">
@@ -329,11 +334,11 @@ export default function JobDetailPage() {
             </Card>
 
             {/* Company Card */}
-            <Card>
+            <Card className="hover-lift border border-border/50">
               <CardContent className="p-6">
                 <h3 className="font-display font-semibold mb-4">About Company</h3>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 hover:bg-primary/20 transition-colors">
                     <Building2 className="h-7 w-7 text-primary" />
                   </div>
                   <div>
@@ -341,7 +346,7 @@ export default function JobDetailPage() {
                     <p className="text-sm text-muted-foreground">{selectedJob.location}</p>
                   </div>
                 </div>
-                <Button variant="outline" className="w-full" asChild>
+                <Button variant="outline" className="w-full hover-lift" asChild>
                   <Link to={`/company/${selectedJob.companyId}`}>View Company Profile</Link>
                 </Button>
               </CardContent>

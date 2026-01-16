@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Job } from '@/models/types';
-import { MapPin, Clock, DollarSign, Building2, Bookmark } from 'lucide-react';
+import { MapPin, Clock, DollarSign, Building2, Bookmark, Users } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
 interface JobCardProps {
@@ -41,25 +41,25 @@ export function JobCard({ job, compact = false }: JobCardProps) {
 
   if (compact) {
     return (
-      <Card hover className="group">
-        <CardContent className="p-4">
+      <Card hover className="group hover-lift border border-border/50 hover:border-primary/30 transition-all duration-300">
+        <CardContent className="p-5">
           <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-              <Building2 className="h-6 w-6 text-primary" />
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300">
+              <Building2 className="h-6 w-6 text-primary group-hover:scale-110 transition-transform" />
             </div>
             <div className="flex-1 min-w-0">
               <Link to={`/jobs/${job.id}`} className="block">
-                <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors truncate">
+                <h3 className="font-display font-semibold text-foreground group-hover:text-primary transition-colors truncate mb-1">
                   {job.title}
                 </h3>
               </Link>
-              <p className="text-sm text-muted-foreground">{job.companyName}</p>
-              <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground mb-2">{job.companyName}</p>
+              <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground flex-wrap">
                 <span className="flex items-center gap-1">
                   <MapPin className="h-3 w-3" />
                   {job.location}
                 </span>
-                <Badge variant="primary" className="text-xs">
+                <Badge variant="primary" className="text-xs group-hover:scale-105 transition-transform">
                   {jobTypeLabels[job.jobType]}
                 </Badge>
               </div>
@@ -71,55 +71,58 @@ export function JobCard({ job, compact = false }: JobCardProps) {
   }
 
   return (
-    <Card hover className="group overflow-hidden">
-      <CardContent className="p-6">
+    <Card hover className="group overflow-hidden hover-lift border border-border/50 hover:border-primary/30 transition-all duration-300 relative">
+      {/* Gradient overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      
+      <CardContent className="p-6 relative">
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-start gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 group-hover:bg-primary/15 transition-colors">
-              <Building2 className="h-7 w-7 text-primary" />
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300 shadow-sm group-hover:shadow-md">
+              <Building2 className="h-7 w-7 text-primary group-hover:scale-110 transition-transform" />
             </div>
             <div>
               <Link to={`/jobs/${job.id}`}>
-                <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
+                <h3 className="font-display text-lg font-semibold text-foreground group-hover:text-primary transition-colors mb-1">
                   {job.title}
                 </h3>
               </Link>
               <p className="text-muted-foreground mt-0.5">{job.companyName}</p>
             </div>
           </div>
-          <button className="p-2 rounded-lg hover:bg-muted transition-colors">
-            <Bookmark className="h-5 w-5 text-muted-foreground" />
+          <button className="p-2 rounded-lg hover:bg-muted transition-colors group-hover:scale-110 hover:scale-110 active:scale-95">
+            <Bookmark className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
           </button>
         </div>
 
         <div className="flex flex-wrap items-center gap-3 mt-4">
-          <Badge variant="primary">
+          <Badge variant="primary" className="group-hover:scale-105 transition-transform">
             {jobTypeLabels[job.jobType]}
           </Badge>
-          <Badge variant="muted">
+          <Badge variant="muted" className="group-hover:bg-muted/80 transition-colors">
             {experienceLevelLabels[job.experienceLevel]}
           </Badge>
-          <Badge variant="muted">
+          <Badge variant="muted" className="group-hover:bg-muted/80 transition-colors">
             {job.category}
           </Badge>
         </div>
 
         <div className="flex flex-wrap items-center gap-4 mt-4 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 group-hover:text-foreground transition-colors">
             <MapPin className="h-4 w-4" />
             {job.location}
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 group-hover:text-foreground transition-colors">
             <DollarSign className="h-4 w-4" />
             {formatSalary(job.salaryMin, job.salaryMax, job.currency)}
           </span>
-          <span className="flex items-center gap-1.5">
+          <span className="flex items-center gap-1.5 group-hover:text-foreground transition-colors">
             <Clock className="h-4 w-4" />
             {postedTime}
           </span>
         </div>
 
-        <p className="mt-4 text-sm text-muted-foreground line-clamp-2">
+        <p className="mt-4 text-sm text-muted-foreground line-clamp-2 leading-relaxed">
           {job.description}
         </p>
 
@@ -127,27 +130,28 @@ export function JobCard({ job, compact = false }: JobCardProps) {
           {job.skills.slice(0, 4).map((skill) => (
             <span
               key={skill}
-              className="px-2.5 py-1 text-xs font-medium bg-muted rounded-md text-muted-foreground"
+              className="px-2.5 py-1 text-xs font-medium bg-muted rounded-md text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-default"
             >
               {skill}
             </span>
           ))}
           {job.skills.length > 4 && (
-            <span className="px-2.5 py-1 text-xs font-medium bg-muted rounded-md text-muted-foreground">
+            <span className="px-2.5 py-1 text-xs font-medium bg-muted rounded-md text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors cursor-default">
               +{job.skills.length - 4} more
             </span>
           )}
         </div>
 
-        <div className="flex items-center justify-between mt-6 pt-4 border-t">
-          <span className="text-xs text-muted-foreground">
+        <div className="flex items-center justify-between mt-6 pt-4 border-t border-border/50">
+          <span className="text-xs text-muted-foreground flex items-center gap-1.5">
+            <Users className="h-3.5 w-3.5" />
             {job.applicationsCount} applicants
           </span>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" asChild>
+            <Button variant="outline" size="sm" className="hover-lift" asChild>
               <Link to={`/jobs/${job.id}`}>View Details</Link>
             </Button>
-            <Button size="sm" asChild>
+            <Button size="sm" className="hover-lift shadow-md" asChild>
               <Link to={`/jobs/${job.id}?apply=true`}>Apply Now</Link>
             </Button>
           </div>
