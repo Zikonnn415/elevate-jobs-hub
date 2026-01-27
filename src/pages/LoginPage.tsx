@@ -36,9 +36,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-gradient-to-br from-background via-muted/40 to-background">
       {/* Left Panel - Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-6 md:p-10 lg:p-12">
         <div className="w-full max-w-md">
           <Link to="/" className="flex items-center gap-2.5 mb-8">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl gradient-primary shadow-md">
@@ -54,7 +54,7 @@ export default function LoginPage() {
             </div>
           </Link>
 
-          <Card className="border-0 shadow-xl">
+          <Card className="border border-border/60 shadow-xl glass-strong">
             <CardHeader className="space-y-1 pb-4">
               <CardTitle className="font-display text-2xl">Welcome back</CardTitle>
               <CardDescription>
@@ -165,30 +165,42 @@ export default function LoginPage() {
         </div>
       </div>
 
-      {/* Right Panel - Decorative */}
-      <div className="hidden lg:flex lg:flex-1 gradient-hero items-center justify-center p-12">
-        <div className="max-w-md text-center text-primary-foreground">
-          <h2 className="font-display text-3xl font-bold mb-4">
-            Your Career Journey Starts Here
+      {/* Right Panel - Illustration / Info */}
+      <div className="hidden lg:flex lg:flex-1 gradient-hero items-center justify-center p-10 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute -top-10 -right-10 w-64 h-64 rounded-full bg-primary/25 blur-3xl animate-pulse-soft" />
+          <div className="absolute -bottom-10 -left-10 w-72 h-72 rounded-full bg-accent/20 blur-3xl animate-pulse-soft" />
+        </div>
+
+        <div className="relative max-w-lg w-full space-y-6 text-primary-foreground">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/10 px-4 py-1 text-xs font-medium glass-effect">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            Trusted by professionals across Nepal
+          </div>
+
+          <h2 className="font-display text-3xl lg:text-4xl font-bold text-shadow-md">
+            Your career journey starts <span className="text-primary-foreground/90">here.</span>
           </h2>
-          <p className="text-primary-foreground/80 mb-8">
-            Join thousands of professionals who have found their dream jobs through
-            Elevate Workforce Solutions.
+
+          <p className="text-primary-foreground/85 text-base leading-relaxed">
+            Discover verified opportunities, track every application in real-time, and stay organized
+            as you move towards your next role.
           </p>
-          <div className="flex flex-col gap-4">
+
+          <div className="grid grid-cols-3 gap-4 text-left">
             {[
-              'Access to 1,250+ job opportunities',
-              'Connect with 340+ verified companies',
-              'Track applications in real-time',
-            ].map((feature, index) => (
+              { label: 'Jobs Posted', value: '1,250+' },
+              { label: 'Companies', value: '340+' },
+              { label: 'Placements', value: '5,680+' },
+            ].map((item) => (
               <div
-                key={index}
-                className="flex items-center gap-3 p-4 rounded-xl bg-primary-foreground/10 backdrop-blur-sm"
+                key={item.label}
+                className="rounded-2xl bg-primary-foreground/10 px-3 py-4 backdrop-blur-md border border-primary-foreground/15 shadow-card"
               >
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
-                  <ArrowRight className="h-4 w-4 text-primary-foreground" />
-                </div>
-                <span className="text-sm font-medium">{feature}</span>
+                <p className="text-xs text-primary-foreground/70 mb-1">{item.label}</p>
+                <p className="font-display text-xl font-semibold text-primary-foreground">
+                  {item.value}
+                </p>
               </div>
             ))}
           </div>

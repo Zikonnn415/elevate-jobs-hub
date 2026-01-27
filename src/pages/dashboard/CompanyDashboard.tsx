@@ -91,32 +91,83 @@ export default function CompanyDashboard() {
       </div>
 
       <div className="container py-8">
-        {/* Stats Grid */}
+        {/* Stats Grid with mini progress bars */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
-            { label: 'Active Jobs', value: stats.activeJobs, icon: Briefcase, trend: '+2 this week' },
-            { label: 'Total Applications', value: stats.totalApplications, icon: FileText, trend: '+12 this week' },
-            { label: 'New Applications', value: stats.newApplications, icon: Users, trend: 'Needs review' },
-            { label: 'Total Views', value: stats.totalViews.toLocaleString(), icon: Eye, trend: '+15% vs last week' },
-          ].map((stat, index) => (
-            <Card key={index}>
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
-                    <p className="font-display text-3xl font-bold">{stat.value}</p>
-                    <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-                      <TrendingUp className="h-3 w-3 text-success" />
-                      {stat.trend}
-                    </p>
+            {
+              label: 'Active Jobs',
+              value: stats.activeJobs,
+              icon: Briefcase,
+              trend: '+2 this week',
+              barColor: 'primary' as const,
+              barPercent: stats.activeJobs > 0 ? 100 : 25,
+            },
+            {
+              label: 'Total Applications',
+              value: stats.totalApplications,
+              icon: FileText,
+              trend: '+12 this week',
+              barColor: 'accent' as const,
+              barPercent: Math.min(100, Math.max(20, stats.totalApplications * 5)),
+            },
+            {
+              label: 'New Applications',
+              value: stats.newApplications,
+              icon: Users,
+              trend: 'Needs review',
+              barColor: 'warning' as const,
+              barPercent: Math.min(100, Math.max(10, stats.newApplications * 8)),
+            },
+            {
+              label: 'Total Views',
+              value: stats.totalViews.toLocaleString(),
+              icon: Eye,
+              trend: '+15% vs last week',
+              barColor: 'success' as const,
+              barPercent: 75,
+            },
+          ].map((stat, index) => {
+            const barColorClass =
+              stat.barColor === 'primary'
+                ? 'bg-primary'
+                : stat.barColor === 'accent'
+                ? 'bg-accent'
+                : stat.barColor === 'warning'
+                ? 'bg-warning'
+                : 'bg-success';
+
+            return (
+              <Card key={index} className="border-border/60 shadow-card hover-lift">
+                <CardContent className="p-6">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
+                      <p className="font-display text-3xl font-bold">{stat.value}</p>
+                      <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                        <TrendingUp className="h-3 w-3 text-success" />
+                        {stat.trend}
+                      </p>
+                    </div>
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
+                      <stat.icon className="h-5 w-5 text-primary" />
+                    </div>
                   </div>
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                    <stat.icon className="h-5 w-5 text-primary" />
+                  <div className="mt-4">
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                      <span>Performance</span>
+                      <span>{stat.barPercent}%</span>
+                    </div>
+                    <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${barColorClass} transition-all duration-300`}
+                        style={{ width: `${stat.barPercent}%` }}
+                      />
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">

@@ -74,38 +74,9 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
-      {/* Left Panel - Decorative */}
-      <div className="hidden lg:flex lg:flex-1 gradient-hero items-center justify-center p-12">
-        <div className="max-w-md text-center text-primary-foreground">
-          <h2 className="font-display text-3xl font-bold mb-4">
-            Join Nepal's Leading Job Platform
-          </h2>
-          <p className="text-primary-foreground/80 mb-8">
-            Whether you're looking for your dream job or seeking top talent,
-            we're here to help you succeed.
-          </p>
-          <div className="space-y-4">
-            {[
-              'Free account creation',
-              'Personalized job recommendations',
-              'Direct communication with employers',
-              'Real-time application tracking',
-            ].map((feature, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-3 text-left"
-              >
-                <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
-                <span className="text-sm">{feature}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Right Panel - Form */}
-      <div className="flex-1 flex items-center justify-center p-8">
+    <div className="min-h-screen flex bg-gradient-to-br from-background via-muted/40 to-background">
+      {/* Left Panel - Form */}
+      <div className="flex-1 flex items-center justify-center p-6 md:p-10 lg:p-12">
         <div className="w-full max-w-md">
           <Link to="/" className="flex items-center gap-2.5 mb-8">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl gradient-primary shadow-md">
@@ -121,7 +92,7 @@ export default function RegisterPage() {
             </div>
           </Link>
 
-          <Card className="border-0 shadow-xl">
+          <Card className="border border-border/60 shadow-xl glass-strong">
             <CardHeader className="space-y-1 pb-4">
               <CardTitle className="font-display text-2xl">Create an account</CardTitle>
               <CardDescription>
@@ -279,6 +250,45 @@ export default function RegisterPage() {
               </form>
             </CardContent>
           </Card>
+        </div>
+      </div>
+
+      {/* Right Panel - Illustration / Info */}
+      <div className="hidden lg:flex lg:flex-1 gradient-hero items-center justify-center p-10 relative overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute -top-10 -right-10 w-64 h-64 rounded-full bg-primary/25 blur-3xl animate-pulse-soft" />
+          <div className="absolute -bottom-10 -left-10 w-72 h-72 rounded-full bg-accent/20 blur-3xl animate-pulse-soft" />
+        </div>
+
+        <div className="relative max-w-lg w-full space-y-6 text-primary-foreground">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary-foreground/10 px-4 py-1 text-xs font-medium glass-effect">
+            <CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" />
+            Create a free account in less than a minute
+          </div>
+
+          <h2 className="font-display text-3xl lg:text-4xl font-bold text-shadow-md">
+            Join Nepal&apos;s leading job platform.
+          </h2>
+
+          <p className="text-primary-foreground/85 text-base leading-relaxed">
+            Whether you&apos;re a job seeker or an employer, Elevate Workforce helps you connect
+            with the right opportunities faster.
+          </p>
+
+          <div className="space-y-3 text-left">
+            {[
+              'Personalized job recommendations based on your profile',
+              'Direct communication with verified employers',
+              'Real-time tracking for every application you submit',
+            ].map((feature, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary-foreground/10">
+                  <CheckCircle2 className="h-3.5 w-3.5 text-primary-foreground" />
+                </div>
+                <span className="text-sm text-primary-foreground/90">{feature}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

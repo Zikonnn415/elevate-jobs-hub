@@ -86,28 +86,69 @@ export default function JobSeekerDashboard() {
       </div>
 
       <div className="container py-8">
-        {/* Stats Grid */}
+        {/* Stats Grid with mini progress bars */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {[
-            { label: 'Total Applications', value: stats.total, icon: FileText, color: 'primary' },
-            { label: 'Pending Review', value: stats.pending, icon: Clock, color: 'warning' },
-            { label: 'Under Review', value: stats.reviewed, icon: Eye, color: 'primary' },
-            { label: 'Accepted', value: stats.accepted, icon: CheckCircle2, color: 'success' },
-          ].map((stat, index) => (
-            <Card key={index}>
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
-                    <p className="font-display text-3xl font-bold">{stat.value}</p>
+            { label: 'Total Applications', value: stats.total, icon: FileText, color: 'primary' as const },
+            { label: 'Pending Review', value: stats.pending, icon: Clock, color: 'warning' as const },
+            { label: 'Under Review', value: stats.reviewed, icon: Eye, color: 'primary' as const },
+            { label: 'Accepted', value: stats.accepted, icon: CheckCircle2, color: 'success' as const },
+          ].map((stat, index) => {
+            const percentBase = stats.total || 1;
+            const percent =
+              stat.label === 'Total Applications'
+                ? 100
+                : Math.min(100, Math.max(8, Math.round((stat.value / percentBase) * 100)));
+
+            const iconBgColor =
+              stat.color === 'primary'
+                ? 'bg-primary/10'
+                : stat.color === 'warning'
+                ? 'bg-warning-light'
+                : 'bg-success-light';
+
+            const iconColor =
+              stat.color === 'primary'
+                ? 'text-primary'
+                : stat.color === 'warning'
+                ? 'text-warning'
+                : 'text-success';
+
+            const barColor =
+              stat.color === 'primary'
+                ? 'bg-primary'
+                : stat.color === 'warning'
+                ? 'bg-warning'
+                : 'bg-success';
+
+            return (
+              <Card key={index} className="border-border/60 shadow-card hover-lift">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
+                      <p className="font-display text-3xl font-bold">{stat.value}</p>
+                    </div>
+                    <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${iconBgColor}`}>
+                      <stat.icon className={`h-6 w-6 ${iconColor}`} />
+                    </div>
                   </div>
-                  <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-${stat.color}/10`}>
-                    <stat.icon className={`h-6 w-6 text-${stat.color}`} />
+                  <div className="mt-4">
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                      <span>{stat.label === 'Total Applications' ? 'All time' : 'Share of total'}</span>
+                      <span>{percent}%</span>
+                    </div>
+                    <div className="h-1.5 w-full rounded-full bg-muted overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${barColor} transition-all duration-300`}
+                        style={{ width: `${percent}%` }}
+                      />
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
         {/* Applications List */}
