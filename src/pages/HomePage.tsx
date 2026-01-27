@@ -3,7 +3,9 @@ import { Button } from '@/components/ui/button';
 import { JobFilters } from '@/components/jobs/JobFilters';
 import { JobCard } from '@/components/jobs/JobCard';
 import { Badge } from '@/components/ui/badge';
-import { statistics, mockJobs } from '@/data/mockData';
+import { Card, CardContent } from '@/components/ui/card';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { statistics, mockJobs, topCompanies, testimonials } from '@/data/mockData';
 import {
   Search,
   Users,
@@ -15,6 +17,7 @@ import {
   Target,
   TrendingUp,
   Shield,
+  MapPin,
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -126,6 +129,104 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Top Companies Section */}
+      <section className="py-16 bg-gradient-to-r from-background via-muted/40 to-background border-y border-border/60">
+        <div className="container">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+            <div className="animate-slide-in-left">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-2">
+                Trusted by leading employers
+              </p>
+              <h2 className="font-display text-2xl md:text-3xl font-bold">
+                Top Companies Hiring on Elevate Workforce
+              </h2>
+              <p className="text-muted-foreground mt-2 max-w-xl text-sm md:text-base">
+                Discover companies that are actively hiring across Nepal, from fast‑growing startups
+                to established industry leaders.
+              </p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="hover-lift mt-2 md:mt-0 self-start md:self-auto"
+              asChild
+            >
+              <Link to="/companies">
+                View all companies
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+
+          <div className="relative">
+            <div className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-background to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-background to-transparent" />
+
+            <div className="flex gap-4 overflow-x-auto pb-3 pt-1 scrollbar-thin scrollbar-thumb-muted/60 scrollbar-track-transparent">
+              {topCompanies.map((company, index) => (
+                <Card
+                  key={company.id}
+                  hover
+                  className="min-w-[240px] sm:min-w-[260px] md:min-w-[280px] border-border/60 bg-card/95 hover:border-primary/30 hover-lift animate-slide-up"
+                  style={{ animationDelay: `${index * 80}ms` }}
+                >
+                  <CardContent className="p-4">
+                    <div className="flex items-start justify-between gap-3 mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary font-semibold text-sm uppercase">
+                          {company.name
+                            .split(' ')
+                            .slice(0, 2)
+                            .map((w) => w[0])
+                            .join('')}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-medium text-sm text-foreground truncate">
+                            {company.name}
+                          </p>
+                          <p className="text-xs text-muted-foreground truncate">
+                            {company.industry}
+                          </p>
+                        </div>
+                      </div>
+                      <Badge
+                        variant={company.isHiringNow ? 'success' : 'muted'}
+                        className="text-[10px] px-2 py-0.5"
+                      >
+                        {company.badge}
+                      </Badge>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
+                      <span className="flex items-center gap-1">
+                        <MapPin className="h-3.5 w-3.5" />
+                        {company.location}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Briefcase className="h-3.5 w-3.5" />
+                        {company.jobsOpen} open roles
+                      </span>
+                    </div>
+
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-full justify-between text-xs px-3 py-1.5 hover:bg-primary/5"
+                      asChild
+                    >
+                      <Link to={`/companies/${company.id}`}>
+                        View company profile
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us Section */}
       <section className="py-20 bg-muted/50 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
@@ -180,6 +281,69 @@ export default function HomePage() {
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{feature.description}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials / Success Stories Section */}
+      <section className="py-20 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-accent/5 pointer-events-none" />
+        <div className="container relative">
+          <div className="max-w-2xl mx-auto text-center mb-14 animate-fade-in">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary mb-2">
+              Success stories
+            </p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-3">
+              Real people, real career growth
+            </h2>
+            <p className="text-muted-foreground text-base md:text-lg">
+              Hear from job seekers and employers who found the right match through Elevate Workforce.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            {testimonials.map((t, index) => (
+              <Card
+                key={t.id}
+                glass
+                hover
+                className="relative overflow-hidden animate-slide-up hover-lift border-border/60"
+                style={{ animationDelay: `${index * 120}ms` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+                <CardContent className="p-6 relative flex flex-col h-full">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Avatar className="h-10 w-10 shadow-card">
+                      <AvatarFallback className="bg-primary/10 text-primary text-xs font-semibold">
+                        {t.avatarInitials}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="text-left">
+                      <p className="font-medium text-sm text-foreground">{t.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {t.role} • {t.company}
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-5">
+                    “{t.quote}”
+                  </p>
+
+                  <div className="mt-auto flex items-center justify-between pt-3 border-t border-border/60">
+                    <Badge
+                      variant={t.type === 'job_seeker' ? 'accent' : 'primary'}
+                      className="text-[10px] px-2 py-0.5"
+                    >
+                      {t.type === 'job_seeker' ? 'Job Seeker' : 'Employer'}
+                    </Badge>
+                    <span className="text-[11px] text-muted-foreground">
+                      Powered by Elevate Workforce
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>

@@ -427,6 +427,59 @@ export const mockJobs: Job[] = [
   },
 ];
 
+export const topCompanies = [
+  {
+    id: '101',
+    name: 'TechCorp Nepal',
+    location: 'Kathmandu',
+    logo: undefined,
+    jobsOpen: 24,
+    isHiringNow: true,
+    industry: 'Technology',
+    badge: 'Featured',
+  },
+  {
+    id: '102',
+    name: 'Global Solutions Ltd',
+    location: 'Lalitpur',
+    logo: undefined,
+    jobsOpen: 12,
+    isHiringNow: true,
+    industry: 'Consulting',
+    badge: 'Hiring Now',
+  },
+  {
+    id: '103',
+    name: 'Nepal Finance Group',
+    location: 'Kathmandu',
+    logo: undefined,
+    jobsOpen: 8,
+    isHiringNow: true,
+    industry: 'Finance',
+    badge: 'Top Employer',
+  },
+  {
+    id: '104',
+    name: 'Himalayan Industries',
+    location: 'Pokhara',
+    logo: undefined,
+    jobsOpen: 5,
+    isHiringNow: false,
+    industry: 'Manufacturing',
+    badge: 'Trusted Partner',
+  },
+  {
+    id: '107',
+    name: 'Himalayan Resort & Spa',
+    location: 'Pokhara',
+    logo: undefined,
+    jobsOpen: 3,
+    isHiringNow: true,
+    industry: 'Hospitality',
+    badge: 'Premium',
+  },
+];
+
 export const mockApplications: Application[] = [
   {
     id: 'app-1',
@@ -469,6 +522,39 @@ export const mockApplications: Application[] = [
     status: 'accepted',
     appliedAt: new Date('2024-01-18'),
     updatedAt: new Date('2024-01-28'),
+  },
+];
+
+export const testimonials = [
+  {
+    id: 't1',
+    name: 'Sanjay Sharma',
+    role: 'Senior Software Engineer',
+    company: 'TechCorp Nepal',
+    quote:
+      'Within two weeks of signing up, I had multiple interviews lined up. Elevate Workforce helped me land my dream role in Kathmandu.',
+    avatarInitials: 'SS',
+    type: 'job_seeker',
+  },
+  {
+    id: 't2',
+    name: 'Priyanka Gurung',
+    role: 'HR Manager',
+    company: 'Himalayan Industries',
+    quote:
+      'We reduced our hiring time by 40%. The quality of candidates and the support from the team has been outstanding.',
+    avatarInitials: 'PG',
+    type: 'employer',
+  },
+  {
+    id: 't3',
+    name: 'Ravi Thapa',
+    role: 'Marketing Manager',
+    company: 'Global Solutions Ltd',
+    quote:
+      'The platform made it easy to showcase my experience and connect with companies that matched my values and goals.',
+    avatarInitials: 'RT',
+    type: 'job_seeker',
   },
 ];
 
