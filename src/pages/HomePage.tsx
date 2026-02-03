@@ -54,7 +54,6 @@ export default function HomePage() {
             <div className="animate-slide-up hover-lift" style={{ animationDelay: '200ms' }}>
               <JobFilters variant="hero" />
             </div>
-
             {/* Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 animate-fade-in" style={{ animationDelay: '400ms' }}>
               {[
