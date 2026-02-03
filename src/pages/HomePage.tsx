@@ -46,12 +46,10 @@ export default function HomePage() {
                 <span className="absolute -bottom-2 left-0 right-0 h-1 bg-primary/30 blur-sm" />
               </span>
             </h1>
-            
             <p className="text-lg md:text-xl text-primary-foreground/90 mb-10 animate-slide-up text-shadow-sm" style={{ animationDelay: '100ms' }}>
               Connecting talented professionals with leading companies across Nepal.
               Start your journey towards a fulfilling career today.
             </p>
-
             {/* Search Box */}
             <div className="animate-slide-up hover-lift" style={{ animationDelay: '200ms' }}>
               <JobFilters variant="hero" />
